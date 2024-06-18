@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-styled-components"
+  ],
+  "customSyntax": "@stylelint/postcss-css-in-js",
+  "rules": {
+    "unit-disallowed-list": ["px"],
+    "selector-pseudo-element-colon-notation": "double",
+    "value-keyword-case": null,
+    "declaration-property-value-no-unknown": null,
+    "property-no-unknown": null,
+    "selector-class-pattern": null
+  }
+}

@@ -1,0 +1,16 @@
+.yarn
+.next
+dist
+node_modules
+dist
+package-lock.json
+build
+src/types
+
+# PWA
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
