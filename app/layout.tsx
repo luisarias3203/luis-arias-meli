@@ -5,6 +5,8 @@ import {
   proximanovaRegular,
   proximanovaSemibold,
 } from '@/app/ui/fonts'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import React, { Suspense } from 'react'
 
@@ -27,6 +29,8 @@ export default function RootLayout({
           <Header />
         </Suspense>
         <main className='container'>{children}</main>
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
