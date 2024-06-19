@@ -1,14 +1,10 @@
 import {
+  CategoriesProps,
   DescriptionResponseProps,
   ItemMeliProps,
   ItemResponseProps,
 } from './definitions'
 
-/**
- * Fetches items from the MercadoLibre API based on a search query.
- * @param {{ search: string }} { search } - The search parameter to query the API.
- * @returns {Promise<Object>} A promise that resolves to an object containing author details, categories, and items.
- */
 export async function getItems({ search }: { search: string }) {
   try {
     const response = await fetch(
@@ -16,20 +12,18 @@ export async function getItems({ search }: { search: string }) {
     )
     if (!response.ok) throw new Error('Failed to fetch data')
     const jsonResponse = await response.json()
-    const itemsArray = jsonResponse.results
+    const itemsArray = jsonResponse?.results
     const responseObject = {
       author: {
         name: 'Luis',
         lastName: 'Arias',
       },
-      categories: {
-        categories: itemsArray?.map(
-          (item: { category_id: string; category_name: string }) => ({
-            id: item?.category_id,
-            category: item?.category_name,
-          })
-        ),
-      },
+      categories: jsonResponse?.filters?.[0]?.values?.[0].path_from_root.map(
+        (category: { id: string; name: string }) => ({
+          id: category?.id,
+          category: category?.name,
+        })
+      ),
       items: itemsArray?.map((item: ItemMeliProps) => ({
         id: item?.id,
         title: item?.title,
@@ -61,6 +55,7 @@ export async function getItem(id: string) {
         name: 'Luis',
         lastName: 'Arias',
       },
+      categoryId: jsonResponse?.category_id,
       item: {
         id: jsonResponse?.id,
         title: jsonResponse?.title,
@@ -91,6 +86,28 @@ export async function getDescription(id: string) {
     const jsonResponse = await response.json()
     const responseObject: DescriptionResponseProps = {
       description: jsonResponse?.plain_text,
+    }
+    return responseObject
+  } catch (error) {
+    console.error(error)
+  }
+  return null
+}
+
+export async function getCategory(id: string) {
+  try {
+    const response = await fetch(
+      `https://api.mercadolibre.com/categories/${id}`
+    )
+    if (!response.ok) throw new Error('Failed to fetch data')
+    const jsonResponse = await response.json()
+    const responseObject: CategoriesProps = {
+      categories: jsonResponse?.path_from_root.map(
+        (category: { id: string; name: string }) => ({
+          id: category?.id,
+          category: category?.name,
+        })
+      ),
     }
     return responseObject
   } catch (error) {

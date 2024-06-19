@@ -1,22 +1,15 @@
 'use client'
-import Logo from '@/app/logo.png'
+import Logo from '@/app/assets/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
 export function Header() {
   const searchParams = useSearchParams()
   const { replace } = useRouter()
-  const pathname = usePathname()
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
-
-  useEffect(() => {
-    if (pathname === '/') {
-      setSearchTerm('')
-    }
-  }, [pathname])
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams)
@@ -31,6 +24,7 @@ export function Header() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     handleSearch(searchTerm)
+    setSearchTerm('')
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +59,7 @@ export function Header() {
             />
             <button
               type='submit'
-              className='rounded-r-md bg-gray-light p-2 h-full w-10 hover:bg-gray bg-[length:1.25rem] bg-no-repeat bg-center transition-colors bg-[url(../app/search.svg)]'
+              className='rounded-r-md bg-gray-light p-2 h-full w-10 hover:bg-gray bg-[length:1.25rem] bg-no-repeat bg-center transition-colors bg-[url(../app/assets/search.svg)]'
               aria-label='Search'
             />
           </form>

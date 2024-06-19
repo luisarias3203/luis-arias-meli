@@ -1,4 +1,4 @@
-import notFoundImage from '@/app/not-found-image.svg'
+import notFoundImage from '@/app/assets/not-found-image.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 

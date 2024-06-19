@@ -1,26 +1,29 @@
+import Shipping from '@/app/assets/shipping.png'
 import { getItems } from '@/app/lib/data'
 import { ItemProps } from '@/app/lib/definitions'
 import { FormatPrice } from '@/app/lib/utils'
-import Shipping from '@/app/shipping.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import NotFound from '../not-found'
+import Breadcrumbs from '../ui/components/breadcrumbs'
 
 export default async function Items({
   searchParams,
 }: {
   searchParams: { search: string }
 }) {
-  const { items = [] } = (await getItems(searchParams)) || {}
+  const data = await getItems(searchParams)
+  const items = data?.items
+  const categories = data?.categories
 
   if (!items.length) {
     return <NotFound />
   }
 
   return (
-    <div className='md:grid md:grid-cols-12 gap-4'>
+    <section className='md:grid md:grid-cols-12 gap-4'>
       <div className='md:col-start-2 col-span-10'>
-        {/* <Breadcrumbs categories={items?.categories} /> */}
+        {categories && <Breadcrumbs categories={categories} />}
         <ul className='bg-white px-4 divide-gray-light rounded-sm divide-y my-4'>
           {items?.map((item: ItemProps) => {
             const { id, title, price, picture, condition, freeShipping } = item
@@ -28,16 +31,18 @@ export default async function Items({
               <li key={id} className='py-4 md:grid md:grid-cols-10 gap-4'>
                 <Link
                   href={`/items/${id}`}
-                  className='w-full pb-[100%] relative rounded col-span-2'
+                  className='w-full block rounded col-span-2'
                 >
                   {picture && title && (
                     <Image
                       src={picture}
                       alt={title}
-                      fill
-                      sizes='100%'
+                      height={180}
+                      width={180}
+                      sizes='100vw'
                       style={{
-                        objectFit: 'contain',
+                        width: '100%',
+                        height: 'auto',
                       }}
                     />
                   )}
@@ -88,6 +93,6 @@ export default async function Items({
           })}
         </ul>
       </div>
-    </div>
+    </section>
   )
 }

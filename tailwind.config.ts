@@ -38,6 +38,7 @@ const config: Config = {
         DEFAULT: '1rem',
         sm: '1rem',
         lg: '2rem',
+        xl: '0',
       },
       screens: {
         xl: '75rem',

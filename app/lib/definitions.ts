@@ -14,8 +14,13 @@ export interface AuthorProps {
   lastName: string
 }
 
+export interface CategoryProps {
+  id: string
+  category: string
+}
+
 export interface CategoriesProps {
-  categories: string[]
+  categories: CategoryProps[]
 }
 
 export interface PriceProps {
@@ -43,13 +48,14 @@ export interface ItemsProps {
 
 export interface ItemsResponseProps {
   author: AuthorProps
-  categories?: CategoriesProps
+  categories: CategoriesProps
   items: ItemsProps
 }
 
 export interface ItemResponseProps {
   author: AuthorProps
   item: ItemProps & AdditionalItemProps
+  categoryId: string
 }
 
 export interface DescriptionResponseProps {
