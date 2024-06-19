@@ -23,9 +23,9 @@ export default async function ItemPage({
   const categories = categoriesData?.categories
   return (
     <section className='md:grid md:grid-cols-12 gap-4'>
-      <div className='md:col-start-2 md:col-span-10 gap-4'>
+      <div className='md:col-start-2 md:col-span-10'>
         {categories && <Breadcrumbs categories={categories} />}
-        <div className='md:grid md:grid-cols-10'>
+        <div className='md:grid md:grid-cols-10 gap-4'>
           <div className='col-span-7 mt-4 mb-8'>
             {item?.picture && (
               <Image
