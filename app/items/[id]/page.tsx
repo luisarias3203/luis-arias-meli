@@ -8,13 +8,14 @@ export default async function ItemPage({
 }: {
   params: { id: string }
 }) {
-  const { item = [] } = (await getItem(id)) || {}
-  const { title, price, picture, condition, soldQuantity } = item
-  const { description } = (await getDescription(id)) || {}
-
-  if (!item) {
+  const itemResponse = await getItem(id)
+  if (!itemResponse) {
     return <NotFound />
   }
+  const item = itemResponse.item || {}
+  const { title, price, picture, condition, soldQuantity } = item
+
+  const { description } = (await getDescription(id)) || {}
   return (
     <div className='md:grid md:grid-cols-12 gap-4'>
       <div className='md:col-start-2 md:grid md:grid-cols-10 md:col-span-10 gap-4'>
