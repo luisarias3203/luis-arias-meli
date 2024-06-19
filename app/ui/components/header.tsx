@@ -3,7 +3,7 @@ import Logo from '@/app/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
 export function Header() {
@@ -50,27 +50,25 @@ export function Header() {
               priority
             />
           </Link>
-          <Suspense>
-            <form className='ml-6 w-full relative flex' onSubmit={handleSubmit}>
-              <label htmlFor='search' className='sr-only'>
-                Buscar
-              </label>
-              <input
-                type='search'
-                id='search'
-                name='search'
-                className='w-full bg-white rounded-l-md py-2 px-[.9rem] focus-visible:outline-gray focus-visible:outline focus-visible:outline-2 text-[1.125rem]'
-                placeholder='Nunca dejes de buscar'
-                value={searchTerm}
-                onChange={handleChange}
-              />
-              <button
-                type='submit'
-                className='rounded-r-md bg-gray-light p-2 h-full w-10 hover:bg-gray bg-[length:1.25rem] bg-no-repeat bg-center transition-colors bg-[url(../app/search.svg)]'
-                aria-label='Search'
-              />
-            </form>
-          </Suspense>
+          <form className='ml-6 w-full relative flex' onSubmit={handleSubmit}>
+            <label htmlFor='search' className='sr-only'>
+              Buscar
+            </label>
+            <input
+              type='search'
+              id='search'
+              name='search'
+              className='w-full bg-white rounded-l-md py-2 px-[.9rem] focus-visible:outline-gray focus-visible:outline focus-visible:outline-2 text-[1.125rem]'
+              placeholder='Nunca dejes de buscar'
+              value={searchTerm}
+              onChange={handleChange}
+            />
+            <button
+              type='submit'
+              className='rounded-r-md bg-gray-light p-2 h-full w-10 hover:bg-gray bg-[length:1.25rem] bg-no-repeat bg-center transition-colors bg-[url(../app/search.svg)]'
+              aria-label='Search'
+            />
+          </form>
         </div>
       </div>
       <h1 className='sr-only'>Luis Arias Meli test</h1>

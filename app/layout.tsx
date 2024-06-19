@@ -6,7 +6,7 @@ import {
   proximanovaSemibold,
 } from '@/app/ui/fonts'
 import type { Metadata } from 'next'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Luis Arias Meli test',
@@ -23,7 +23,9 @@ export default function RootLayout({
       <body
         className={`${proximanovaLight.variable} ${proximanovaRegular.variable} ${proximanovaSemibold.variable} antialiased bg-gray-light`}
       >
-        <Header />
+        <Suspense>
+          <Header />
+        </Suspense>
         <main className='container'>{children}</main>
       </body>
     </html>
