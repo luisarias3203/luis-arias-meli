@@ -2,14 +2,15 @@
 import Logo from '@/app/assets/logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 
 export function Header() {
   const searchParams = useSearchParams()
-  const { replace } = useRouter()
+  const { push } = useRouter()
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
+  const pathname = usePathname()
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams)
@@ -18,13 +19,16 @@ export function Header() {
     } else {
       params.delete('search')
     }
-    replace(`/items/?${params.toString()}`)
+    push(`/items/?${params.toString()}`)
   })
+
+  useEffect(() => {
+    if (pathname === '/') setSearchTerm('')
+  }, [pathname])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     handleSearch(searchTerm)
-    setSearchTerm('')
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

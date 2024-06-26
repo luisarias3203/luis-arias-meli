@@ -1,6 +1,6 @@
 import { PriceProps } from './definitions'
 
-export const FormatPrice = (props: PriceProps) => {
+export const getFormatPrice = (props: PriceProps) => {
   const { currency, amount, decimals } = props
   const fullAmount = Number(`${amount}.${decimals}`)
 

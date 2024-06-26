@@ -1,7 +1,7 @@
 import Shipping from '@/app/assets/shipping.png'
 import { getItems } from '@/app/lib/data'
 import { ItemProps } from '@/app/lib/definitions'
-import { FormatPrice } from '@/app/lib/utils'
+import { getFormatPrice } from '@/app/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 import NotFound from '../not-found'
@@ -33,31 +33,27 @@ export default async function Items({
                   href={`/items/${id}`}
                   className='w-full block rounded col-span-2'
                 >
-                  {picture && title && (
-                    <Image
-                      src={picture}
-                      alt={title}
-                      height={180}
-                      width={180}
-                      sizes='100vw'
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                      }}
-                    />
-                  )}
+                  <Image
+                    src={picture}
+                    alt={title}
+                    height={180}
+                    width={180}
+                    sizes='100vw'
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                    }}
+                  />
                 </Link>
                 <div className='col-span-6'>
                   <div className='flex space-x-2 items-center mb-4 md:mb-8 mt-4'>
-                    {price && (
-                      <p className='text-xl font-proximanovaRegular'>
-                        {FormatPrice({
-                          currency: price.currency,
-                          amount: price.amount,
-                          decimals: price.decimals,
-                        })}
-                      </p>
-                    )}
+                    <p className='text-xl font-proximanovaRegular'>
+                      {getFormatPrice({
+                        currency: price.currency,
+                        amount: price.amount,
+                        decimals: price.decimals,
+                      })}
+                    </p>
                     {freeShipping && (
                       <div>
                         <Image
@@ -70,24 +66,16 @@ export default async function Items({
                       </div>
                     )}
                   </div>
-                  {id && (
-                    <Link
-                      href={`/items/${id}`}
-                      className='hover:text-gray-dark transition-colors'
-                    >
-                      <h2 className='text-lg font-proximanovaRegular'>
-                        {title}
-                      </h2>
-                    </Link>
-                  )}
+                  <Link
+                    href={`/items/${id}`}
+                    className='hover:text-gray-dark transition-colors'
+                  >
+                    <h2 className='text-lg font-proximanovaRegular'>{title}</h2>
+                  </Link>
                 </div>
-                {condition && (
-                  <div className='col-span-2 mt-4 text-xs'>
-                    <p className='text-sm font-proximanovaRegular'>
-                      {condition}
-                    </p>
-                  </div>
-                )}
+                <div className='col-span-2 mt-4 text-xs'>
+                  <p className='text-sm font-proximanovaRegular'>{condition}</p>
+                </div>
               </li>
             )
           })}

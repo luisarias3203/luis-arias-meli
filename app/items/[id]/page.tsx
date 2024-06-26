@@ -1,5 +1,5 @@
 import { getCategory, getDescription, getItem } from '@/app/lib/data'
-import { FormatPrice } from '@/app/lib/utils'
+import { getFormatPrice } from '@/app/lib/utils'
 import NotFound from '@/app/not-found'
 import Breadcrumbs from '@/app/ui/components/breadcrumbs'
 import Image from 'next/image'
@@ -22,10 +22,10 @@ export default async function ItemPage({
   const categoriesData = await getCategory(data?.categoryId)
   const categories = categoriesData?.categories
   return (
-    <section className='md:grid md:grid-cols-12 gap-4'>
+    <section className='md:grid md:grid-cols-12 gap-4 '>
       <div className='md:col-start-2 md:col-span-10'>
         {categories && <Breadcrumbs categories={categories} />}
-        <div className='md:grid md:grid-cols-10 gap-4'>
+        <div className='md:grid md:grid-cols-10 gap-4 bg-white'>
           <div className='col-span-7 mt-4 mb-8'>
             {item?.picture && (
               <Image
@@ -56,7 +56,7 @@ export default async function ItemPage({
             )}
             {item?.price && (
               <p className='text-3xl lg:text-[2.875rem] my-8 font-proximanovaRegular'>
-                {FormatPrice({
+                {getFormatPrice({
                   currency: item?.price.currency,
                   amount: item?.price.amount,
                   decimals: item?.price.decimals,
